@@ -3,30 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
-    [Header("Essential references")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private SpriteRenderer sprite;
-    [SerializeField] private Rigidbody2D rb;
-
-    [Header("Ground check")]
-    [SerializeField] private Transform groundCheckTransform;
-    [SerializeField] private LayerMask groundLayer;
-
     [Header("Movement")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
 
-    private float horizontal;
+    [Header("Ground check")]
+    [SerializeField] private Transform groundCheckTransform;
+    [SerializeField] private LayerMask groundLayer;
+
+    private Rigidbody2D rb;
+
+    [HideInInspector] public float horizontal;
     private bool isFacingRight = true;
 
     private InputAction moveAction;
     private InputAction jumpAction;
 
-    private enum MovementState { idle, running, jumping, falling }
-
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+    private void OnDisable()
+    {
+        Destroy(this);
+    }
     private void Awake()
     {
         moveAction = playerInput.actions["Move"];
@@ -38,32 +42,8 @@ public class Movement : MonoBehaviour
     {
         HandleRotate();
         HandleRun();
-        UpdateAnimationState();
     }
-    private void UpdateAnimationState()
-    {
-        MovementState state;
-
-        if (horizontal != 0)
-        {
-            state = MovementState.running;
-        }
-        else
-        {
-            state = MovementState.idle;
-        }
-
-        if(rb.velocity.y > .1f)
-        {
-            state = MovementState.jumping;
-        }
-        else if(rb.velocity.y < -.1f)
-        {
-            state = MovementState.falling;
-        }
-
-        animator.SetInteger("state", (int)state);
-    }
+   
     private void HandleRun()
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
@@ -90,7 +70,11 @@ public class Movement : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheckTransform.position, 0.2f, groundLayer);
+        if (groundCheckTransform != null)
+        {
+            return Physics2D.OverlapCircle(groundCheckTransform.position, 0.2f, groundLayer);
+        }
+        return false;
     }
 
     private void FlipModel()
