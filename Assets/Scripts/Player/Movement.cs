@@ -27,16 +27,17 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    private void OnDisable()
-    {
-        Destroy(this);
-    }
     private void Awake()
     {
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
 
         jumpAction.performed += HandleJump;
+    }
+
+    private void OnDisable()
+    {
+        jumpAction.performed -= HandleJump;
     }
     private void Update()
     {
@@ -70,11 +71,7 @@ public class Movement : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        if (groundCheckTransform != null)
-        {
-            return Physics2D.OverlapCircle(groundCheckTransform.position, 0.2f, groundLayer);
-        }
-        return false;
+        return Physics2D.OverlapCircle(groundCheckTransform.position, 0.4f, groundLayer);
     }
 
     private void FlipModel()
