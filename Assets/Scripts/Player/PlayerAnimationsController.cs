@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody2D), typeof(HealthManager))]
-public class AnimationsController : MonoBehaviour
+public class PlayerAnimationsController : MonoBehaviour
 {
     private Animator animator;
     private Movement playerMovement;

@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Chechpoints
+    uniqueID: 33726163
+    locked: 0
+  - name: Player
+    uniqueID: 2131964019
+    locked: 0
