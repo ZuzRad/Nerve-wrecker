@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private float speed = 8f;
+    [SerializeField] public float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
 
     [Header("Ground check")]

@@ -7,13 +7,11 @@ public class BlowingFan : MonoBehaviour
 {
 	[SerializeField] private float blowPower = 16f;
 	[SerializeField] private float forceInterval = 0.1f;
-	private bool isPlayerInside = false;
+
 	private Rigidbody2D rb;
 	private float timeSinceLastBlow = 0f;
-	private void Update()
+	private void OnTriggerStay2D(Collider2D collision)
 	{
-		if (isPlayerInside && rb != null) 
-		{
 			timeSinceLastBlow +=Time.deltaTime;
 
 			if (timeSinceLastBlow >= forceInterval)
@@ -21,21 +19,18 @@ public class BlowingFan : MonoBehaviour
 				rb.AddForce(Vector2.up * blowPower, ForceMode2D.Impulse);
 				timeSinceLastBlow = 0f;
 			}
-		}
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.name == "Model")
+		if (collision.TryGetComponent(out Movement player))
 		{
 			rb = collision.GetComponent<Rigidbody2D>();	
-			isPlayerInside = true;	
 		}
 	}
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (collision.gameObject.name == "Model")
+		if (collision.TryGetComponent(out Movement player))
 		{
-			isPlayerInside = false;
 			rb = null;
 		}
 	}
