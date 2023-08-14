@@ -12,13 +12,16 @@ public class BlowingFan : MonoBehaviour
 	private float timeSinceLastBlow = 0f;
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-			timeSinceLastBlow +=Time.deltaTime;
+		if (collision.TryGetComponent(out Movement player))
+		{
+			timeSinceLastBlow += Time.deltaTime;
 
 			if (timeSinceLastBlow >= forceInterval)
 			{
 				rb.AddForce(Vector2.up * blowPower, ForceMode2D.Impulse);
 				timeSinceLastBlow = 0f;
 			}
+		}
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
