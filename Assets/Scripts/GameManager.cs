@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
         player.healthManager.onPlayerDeath += BackToCheckpoint;
         player.healthManager.onPlayerLost += RestartLevel;
         end.onEndLevel += HandleEndLevel;
-        foreach(Checkpoint checkpoint in checkpointsList)
+
+		foreach (Checkpoint checkpoint in checkpointsList)
         {
             checkpoint.onCheckpointTrigger += ChangeCurrentCheckpoint;
         }
@@ -39,11 +40,12 @@ public class GameManager : MonoBehaviour
         player.healthManager.onPlayerDeath -= BackToCheckpoint;
         player.healthManager.onPlayerLost -= RestartLevel;
         end.onEndLevel -= HandleEndLevel;
-        foreach (Checkpoint checkpoint in checkpointsList)
+		foreach (Checkpoint checkpoint in checkpointsList)
         {
             checkpoint.onCheckpointTrigger -= ChangeCurrentCheckpoint;
         }
     }
+
 
     private void HandleEndLevel()
     {
