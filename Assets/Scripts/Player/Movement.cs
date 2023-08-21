@@ -18,10 +18,13 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
 
     [HideInInspector] public float horizontal;
-    public bool isFacingRight = true;
+    private bool isFacingRight = true;
 
     private InputAction moveAction;
     private InputAction jumpAction;
+
+    public float additionalForce = 0;
+
 
     private void Start()
     {
@@ -49,7 +52,15 @@ public class Movement : MonoBehaviour
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
         horizontal = input.x;
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        
+        if(additionalForce != 0)
+        {
+            rb.AddForce(new Vector2(horizontal * additionalForce, 0f));
+        }
+        else
+        {
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        }
     }
     private void HandleJump(InputAction.CallbackContext context)
     {
@@ -81,4 +92,11 @@ public class Movement : MonoBehaviour
         localScale.x *= -1f;
         transform.localScale = localScale;
     }
+
+    //public void AddForce(float force)
+    //{
+    //    Debug.Log(force);
+    //    rb.velocity *= force;
+    //   // rb.AddForce(new Vector2(horizontal * force, 0f));
+    //}
 }

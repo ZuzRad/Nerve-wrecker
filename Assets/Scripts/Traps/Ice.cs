@@ -9,13 +9,15 @@ public class Ice : MonoBehaviour
 	{
 		if (collision.TryGetComponent(out Movement player))
 		{
-			Rigidbody2D playerRB = player.GetComponent<Rigidbody2D>();
-			playerRB.velocity *= slideForce;
-			//         if (player.isFacingRight)
-			//         {
+			player.additionalForce = slideForce;
+		}
+	}
 
-			//         }
-			//playerRB.AddForce(new Vector2(horizontal * slideForce, 0f));
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+		if (collision.TryGetComponent(out Movement player))
+		{
+			player.additionalForce = 0;
 		}
 	}
 }
