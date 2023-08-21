@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Ice : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private float slideForce = 1f;
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.TryGetComponent(out Movement player))
+		{
+			Rigidbody2D playerRB = player.GetComponent<Rigidbody2D>();
+			playerRB.velocity *= slideForce;
+			//         if (player.isFacingRight)
+			//         {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+			//         }
+			//playerRB.AddForce(new Vector2(horizontal * slideForce, 0f));
+		}
+	}
 }

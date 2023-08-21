@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
 
     [HideInInspector] public float horizontal;
-    private bool isFacingRight = true;
+    public bool isFacingRight = true;
 
     private InputAction moveAction;
     private InputAction jumpAction;

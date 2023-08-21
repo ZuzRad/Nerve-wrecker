@@ -10,9 +10,6 @@ public class Mud : MonoBehaviour
 	private float mostRecentSpeed;
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		Debug.Log("Siema");
-			
-
 		if (collision.TryGetComponent(out Movement player))
 		{
 			mostRecentSpeed = player.speed;
