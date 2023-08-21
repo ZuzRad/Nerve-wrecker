@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikedHead : MonoBehaviour
+public class SpikedHead : Obstacle
 {
     [SerializeField] GameObject projectile;
     [SerializeField] Transform spawnPoint;
@@ -25,10 +25,8 @@ public class SpikedHead : MonoBehaviour
             for(int i = 0; i < projectileAmount; i++)
             {
                 GameObject projectileGO = Instantiate(projectile);
-               // int randomIndex = Random.Range(0, spawnPoints.Count);
                 projectile.GetComponent<Projectile>().isRight = i % 2 == 0;
                 projectileGO.transform.position = spawnPoint.position;
-               // projectileGO.transform.position = spawnPoints[randomIndex].position;
             }
             timer = tempTimer;
         }

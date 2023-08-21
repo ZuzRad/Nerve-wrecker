@@ -13,9 +13,7 @@ public class Mud : MonoBehaviour
 		if (collision.TryGetComponent(out Movement player))
 		{
 			mostRecentSpeed = player.speed;
-			//Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-			//rb.velocity = new Vector2(rb.velocity.x * slow, rb.velocity.y);
-			player.speed = player.speed * slow;
+			player.speed *= slow;
 		}
 	}
 	private void OnTriggerExit2D(Collider2D collision)

@@ -41,11 +41,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Parralax 0
+    uniqueID: 223403643
+    locked: 0
+  - name: Parralax 1
+    uniqueID: 2910343595
+    locked: 0
+  - name: Parralax 2
+    uniqueID: 2373809125
+    locked: 0
   - name: Chechpoints
     uniqueID: 33726163
     locked: 0
   - name: Terrain
     uniqueID: 1067505559
+    locked: 0
+  - name: Traps
+    uniqueID: 3418197975
     locked: 0
   - name: Player
     uniqueID: 2131964019
