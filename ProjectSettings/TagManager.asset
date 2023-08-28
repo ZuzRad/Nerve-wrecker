@@ -59,6 +59,9 @@ TagManager:
   - name: Traps
     uniqueID: 3418197975
     locked: 0
+  - name: Laser line
+    uniqueID: 2322591845
+    locked: 0
   - name: Player
     uniqueID: 2131964019
     locked: 0

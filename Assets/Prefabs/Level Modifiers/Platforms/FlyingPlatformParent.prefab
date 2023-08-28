@@ -104,6 +104,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 4277425930149046469}
     m_Modifications:
     - target: {fileID: 3158611873002644809, guid: b2db6e2162755f74ca413d3709d2661f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.4863388
+      objectReference: {fileID: 0}
+    - target: {fileID: 3158611873002644809, guid: b2db6e2162755f74ca413d3709d2661f, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.06919637
+      objectReference: {fileID: 0}
+    - target: {fileID: 3158611873002644809, guid: b2db6e2162755f74ca413d3709d2661f, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.625
       objectReference: {fileID: 0}
@@ -171,6 +179,14 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[1]
       value: 
       objectReference: {fileID: 4277425928209498536}
+    - target: {fileID: 3158611873002644823, guid: b2db6e2162755f74ca413d3709d2661f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3459167
+      objectReference: {fileID: 0}
+    - target: {fileID: 3158611873002644823, guid: b2db6e2162755f74ca413d3709d2661f, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.21808222
+      objectReference: {fileID: 0}
     - target: {fileID: 3158611873002644823, guid: b2db6e2162755f74ca413d3709d2661f, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.625
