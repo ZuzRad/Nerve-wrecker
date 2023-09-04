@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class Trampoline : MonoBehaviour
 	private float timeSinceLastBlow = 0f;
 	private Animator animator;
 
+	public Action onTrigger;
+
     private void Start()
     {
 		animator = GetComponent<Animator>();
@@ -21,6 +24,7 @@ public class Trampoline : MonoBehaviour
 			rb = player.GetComponent<Rigidbody2D>();
 			rb.AddForce(Vector2.up * forcePower, ForceMode2D.Impulse);
 			animator.SetTrigger("standing");
+			onTrigger?.Invoke();
 		}
 	}
 }

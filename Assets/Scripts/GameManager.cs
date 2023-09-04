@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
+
+    [Header("Checkpoints")]
     [SerializeField] private List<Checkpoint> checkpointsList = new();
     [SerializeField] private Checkpoint start;
     [SerializeField] private EndLevel end;
 
+    [Header("Sound Managers")]
+    [SerializeField] private GameMusicManager musicManager;
+    [SerializeField] private SoundManager soundManager;
     private Checkpoint currentCheckpoint;
     private void OnEnable()
     {
@@ -23,6 +28,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentCheckpoint = start;
+        GameMusicManager.Music randomMusic = (GameMusicManager.Music)Random.Range(0, 3);
+        musicManager.PlayMusic(randomMusic);
     }
     private void BindToEvents()
     {

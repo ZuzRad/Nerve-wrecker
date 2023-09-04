@@ -5167,9 +5167,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1382384450890798757, guid: 140f27a1e362c1342bba9adba9134375, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -12.61
+    - target: {fileID: 4843970519099007225, guid: 140f27a1e362c1342bba9adba9134375, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.739
       objectReference: {fileID: 0}
     - target: {fileID: 8501950284871128199, guid: 140f27a1e362c1342bba9adba9134375, type: 3}
       propertyPath: m_RootOrder
@@ -5218,10 +5218,6 @@ PrefabInstance:
     - target: {fileID: 8501950284871128201, guid: 140f27a1e362c1342bba9adba9134375, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8501950284979443861, guid: 140f27a1e362c1342bba9adba9134375, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -11.949999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 140f27a1e362c1342bba9adba9134375, type: 3}

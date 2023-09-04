@@ -10,6 +10,8 @@ public class BlowingFan : MonoBehaviour
 
 	private Rigidbody2D rb;
 	private float timeSinceLastBlow = 0f;
+
+	public Action onTrigger;
 	private void OnTriggerStay2D(Collider2D collision)
 	{
 		if (collision.TryGetComponent(out Movement player))
@@ -27,7 +29,8 @@ public class BlowingFan : MonoBehaviour
 	{
 		if (collision.TryGetComponent(out Movement player))
 		{
-			rb = collision.GetComponent<Rigidbody2D>();	
+			rb = collision.GetComponent<Rigidbody2D>();
+			onTrigger?.Invoke();
 		}
 	}
 	private void OnTriggerExit2D(Collider2D collision)

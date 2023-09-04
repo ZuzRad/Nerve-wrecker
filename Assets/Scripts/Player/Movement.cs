@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class Movement : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction jumpAction;
+    public Action onJump;
 
     public float additionalForce = 0;
 
@@ -67,6 +69,7 @@ public class Movement : MonoBehaviour
         if(IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            onJump?.Invoke();
         }
     }
     private void HandleRotate()
