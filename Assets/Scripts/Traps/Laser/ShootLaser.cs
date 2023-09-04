@@ -6,20 +6,26 @@ using UnityEngine;
 public class ShootLaser : MonoBehaviour
 {
     [SerializeField] private GameObject laserPrefab;
+    [HideInInspector] public LaserBeam laserBeam;
     private GameObject laser;
+
     public Action onTrigger;
 
-    private void OnTriggerEnter2D(Collider2D collision) //TODO zmniejszanie ¿ycia
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out HealthManager player))
         {
             laser = Instantiate(laserPrefab);
-            LaserBeam laserBeam = laser.GetComponent<LaserBeam>();
+            laserBeam = laser.GetComponent<LaserBeam>();
             laserBeam.target = player.gameObject;
             laserBeam.startPosition = transform;
-            onTrigger?.Invoke();
-            //player.DecreaseHealth();
+            laserBeam.onTrigger += OnTriggerLaser;
         }
+    }
+
+    private void OnTriggerLaser()
+    {
+        onTrigger?.Invoke();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -27,6 +33,7 @@ public class ShootLaser : MonoBehaviour
         if (collision.TryGetComponent(out Movement player))
         {
             Destroy(laser);
+            laserBeam.onTrigger -= OnTriggerLaser;
         }
     }
 }

@@ -65,3 +65,6 @@ TagManager:
   - name: Laser line
     uniqueID: 2322591845
     locked: 0
+  - name: Laser sight
+    uniqueID: 1426024643
+    locked: 0
