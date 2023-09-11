@@ -61,6 +61,7 @@ public class SoundManager : MonoBehaviour {
 
         HealthManager healthManager = FindObjectOfType<HealthManager>();
         healthManager.onPlayerDeath += () => PlaySound(Sounds.Hit);
+        healthManager.onIncreaseHealth += () => PlaySound(Sounds.Collect);
 
         //SoundSlider[] sliders = FindObjectsOfType<SoundSlider>();
         //foreach (var slider in sliders)
@@ -97,15 +98,6 @@ public class SoundManager : MonoBehaviour {
 
         EndLevel endLevel = FindObjectOfType<EndLevel>();
         endLevel.onEndLevel += () => PlaySound(Sounds.EndLevel);
-
-        AddHP[] items = FindObjectsOfType<AddHP>();
-        if (items[0] != null)
-        {
-            foreach (var item in items)
-            {
-                item.onTrigger += () => PlaySound(Sounds.Collect);
-            }
-        }
     }
 
     public enum Sounds

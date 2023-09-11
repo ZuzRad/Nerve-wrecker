@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
+    [SerializeField] private GameUIController UIController;
 
     [Header("Checkpoints")]
     [SerializeField] private List<Checkpoint> checkpointsList = new();
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         player.healthManager.onPlayerDeath += BackToCheckpoint;
         player.healthManager.onPlayerLost += RestartLevel;
+        player.healthManager.onIncreaseHealth += AddHeart;
         end.onEndLevel += HandleEndLevel;
 
 		foreach (Checkpoint checkpoint in checkpointsList)
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         player.healthManager.onPlayerDeath -= BackToCheckpoint;
         player.healthManager.onPlayerLost -= RestartLevel;
+        player.healthManager.onIncreaseHealth -= AddHeart;
         end.onEndLevel -= HandleEndLevel;
 		foreach (Checkpoint checkpoint in checkpointsList)
         {
@@ -72,8 +75,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void AddHeart()
+    {
+        UIController.hpController.IncreaseHeartsAmount();
+    }
+
     private void BackToCheckpoint()
     {
+        UIController.hpController.DecreaseHeartsAmount();
         player.model.transform.position = currentCheckpoint.transform.position;
     }
 }
