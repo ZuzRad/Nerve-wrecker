@@ -87,12 +87,14 @@ public class GameManager : MonoBehaviour
 
     private void HandleResume()
     {
+        player.movement.EnableInputs();
         uiController.SetActivePausePanel(false);
         Time.timeScale = 1;
     }
 
     private void HandlePauseGame()
     {
+        player.movement.DisableInputs();
         uiController.SetActivePausePanel(true);
         Time.timeScale = 0;
     }
@@ -121,9 +123,9 @@ public class GameManager : MonoBehaviour
 
     private void HandleEndLevel()
     {
+        player.movement.DisableInputs();
         uiController.SetActiveCompleteLevelPanel(true);
         Time.timeScale = 0;
-        Debug.Log("You finished the level");
     }
     private void ChangeCurrentCheckpoint(Checkpoint newChechpoint)
     {

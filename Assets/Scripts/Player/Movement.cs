@@ -69,10 +69,26 @@ public class Movement : MonoBehaviour
             timeToControl -= 2 * Time.deltaTime;
             onSlowGame?.Invoke(timeToControl);
         }
-        else
+        else if(timeToControl < 0 && isTimeControlActive)
         {
             Time.timeScale = 1;
         }
+    }
+
+    public void DisableInputs()
+    {
+        moveAction.Disable();
+        jumpAction.Disable();
+        pauseGame.Disable();
+        controlTime.Disable();
+    }
+
+    public void EnableInputs()
+    {
+        moveAction.Enable();
+        jumpAction.Enable();
+        pauseGame.Enable();
+        controlTime.Enable();
     }
 
     private void HandleRun()
