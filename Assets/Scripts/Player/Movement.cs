@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] public float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
+    [SerializeField] public float timeToControl = 10f;
 
     [Header("Ground check")]
     [SerializeField] private Transform groundCheckTransform;
@@ -23,20 +24,30 @@ public class Movement : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction pauseGame;
+    private InputAction controlTime;
+
     public Action onJump;
-
+    public Action onPauseGame;
+    public Action<float> onSlowGame;
+    private bool isTimeControlActive = false;
     public float additionalForce = 0;
-
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
     private void Awake()
     {
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
+        pauseGame = playerInput.actions["Pause"];
+        controlTime = playerInput.actions["Time"];
 
+        controlTime.started += HandleControlTimeStarted;
+        controlTime.canceled += HandleControlTimeCanceled;
+        pauseGame.performed += HandlePause;
         jumpAction.performed += HandleJump;
     }
 
@@ -48,8 +59,22 @@ public class Movement : MonoBehaviour
     {
         HandleRotate();
         HandleRun();
+        HandleControlTime();
     }
    
+    private void HandleControlTime()
+    {
+        if(timeToControl > 0 && isTimeControlActive)
+        {
+            timeToControl -= 2 * Time.deltaTime;
+            onSlowGame?.Invoke(timeToControl);
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     private void HandleRun()
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
@@ -71,6 +96,23 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             onJump?.Invoke();
         }
+    }
+
+    private void HandleControlTimeStarted(InputAction.CallbackContext context)
+    {
+        isTimeControlActive = !isTimeControlActive;
+        Time.timeScale = 0.5f;
+    }
+
+    private void HandleControlTimeCanceled(InputAction.CallbackContext context)
+    {
+        isTimeControlActive = !isTimeControlActive;
+        Time.timeScale = 1f;
+    }
+
+    private void HandlePause(InputAction.CallbackContext context)
+    {
+        onPauseGame?.Invoke();
     }
     private void HandleRotate()
     {
