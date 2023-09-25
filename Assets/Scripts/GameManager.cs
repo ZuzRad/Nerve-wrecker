@@ -82,7 +82,9 @@ public class GameManager : MonoBehaviour
     private void HandleBackToMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Menu");
+          SaveSystem.SavePlayer(player,currentCheckpoint,1);
+        SceneManager.LoadScene("Menu");    
+        
     }
 
     private void HandleResume()
@@ -150,5 +152,9 @@ public class GameManager : MonoBehaviour
     {
         uiController.hpController.DecreaseHeartsAmount();
         player.model.transform.position = currentCheckpoint.transform.position;
+    }
+    private void SavePlayerInformation() 
+    {
+        SaveSystem.SavePlayer(player,currentCheckpoint,1);
     }
 }
