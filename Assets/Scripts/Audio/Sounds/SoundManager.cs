@@ -56,48 +56,48 @@ public class SoundManager : MonoBehaviour {
     
     private void BindAllEnvironmentElements()
     {
+
         Movement player = FindObjectOfType<Movement>();
-        player.onJump += () => PlaySound(Sounds.Jump);
+        if (player != null)
+        {
+            player.onJump += () => PlaySound(Sounds.Jump);
 
-        HealthManager healthManager = FindObjectOfType<HealthManager>();
-        healthManager.onPlayerDeath += () => PlaySound(Sounds.Hit);
-        healthManager.onIncreaseHealth += () => PlaySound(Sounds.Collect);
+            HealthManager healthManager = FindObjectOfType<HealthManager>();
+            healthManager.onPlayerDeath += () => PlaySound(Sounds.Hit);
+            healthManager.onIncreaseHealth += () => PlaySound(Sounds.Collect);
+        }
 
-        //SoundSlider[] sliders = FindObjectsOfType<SoundSlider>();
-        //foreach (var slider in sliders)
-        //{
-        //    slider.onChangeSoundVolume += () => PlaySound(Sounds.Collect);
-        //}
+
+        SoundSlider slider = FindObjectOfType<SoundSlider>();
+        if(slider != null)
+        {
+            slider.onChangeSoundVolume += () => PlaySound(Sounds.Collect);
+        }
 
         Trampoline[] trampolines = FindObjectsOfType<Trampoline>();
-        if (trampolines[0] != null)
+        foreach (var trampoline in trampolines)
         {
-            foreach (var trampoline in trampolines)
-            {
-                trampoline.onTrigger += () => PlaySound(Sounds.Trampoline);
-            }
+            trampoline.onTrigger += () => PlaySound(Sounds.Trampoline);
         }
 
         BlowingFan[] blowingFans = FindObjectsOfType<BlowingFan>();
-        if (blowingFans[0] != null)
+        foreach (var fan in blowingFans)
         {
-            foreach (var fan in blowingFans)
-            {
-                fan.onTrigger += () => PlaySound(Sounds.Wind);
-            }
+            fan.onTrigger += () => PlaySound(Sounds.Wind);
         }
 
         ShootLaser[] lasers = FindObjectsOfType<ShootLaser>();
-        if (lasers[0] != null)
+        foreach (var laser in lasers)
         {
-            foreach (var laser in lasers)
-            {
-                laser.onTrigger += () => PlaySound(Sounds.Laser);
-            }
+            laser.onTrigger += () => PlaySound(Sounds.Laser);
         }
 
         EndLevel endLevel = FindObjectOfType<EndLevel>();
-        endLevel.onEndLevel += () => PlaySound(Sounds.EndLevel);
+        if(endLevel != null)
+        {
+            endLevel.onEndLevel += () => PlaySound(Sounds.EndLevel);
+        }
+
     }
 
     public enum Sounds
