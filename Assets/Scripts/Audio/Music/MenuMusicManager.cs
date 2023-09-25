@@ -41,20 +41,20 @@ public class MenuMusicManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //MenuPanelController menuPanelController = FindObjectOfType<MenuPanelController>();
-        //if (menuPanelController != null)
-        //{
-        //    menuPanelController.MenuMusic += PlayMusic;
-        //}
+        MenuPanelController menuPanelController = FindObjectOfType<MenuPanelController>();
+        if (menuPanelController != null)
+        {
+            menuPanelController.MenuMusic += PlayMusic;
+        }
     }
 
     private void OnDisable()
     {
-        //MenuPanelController menuPanelController = FindObjectOfType<MenuPanelController>();
-        //if (menuPanelController != null)
-        //{
-        //    menuPanelController.MenuMusic -= PlayMusic;
-        //}
+        MenuPanelController menuPanelController = FindObjectOfType<MenuPanelController>();
+        if (menuPanelController != null)
+        {
+            menuPanelController.MenuMusic -= PlayMusic;
+        }
     }
 
     public void PlayMusic()
