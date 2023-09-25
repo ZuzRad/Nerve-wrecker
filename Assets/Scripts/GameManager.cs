@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameUIController uiController;
 
     [Header("Checkpoints")]
-    [SerializeField] private List<Checkpoint> checkpointsList = new();
+    [SerializeField] private List<Checkpoint> checkpointsList = new(); // do tego siê odnieœ i da siê za³adowaæ checkpoint
     [SerializeField] private Checkpoint start;
     [SerializeField] private EndLevel end;
 
@@ -82,9 +83,8 @@ public class GameManager : MonoBehaviour
     private void HandleBackToMenu()
     {
         Time.timeScale = 1;
-          SaveSystem.SavePlayer(player,currentCheckpoint,1);
-        SceneManager.LoadScene("Menu");    
-        
+        SavePlayerInformation();
+		SceneManager.LoadScene("Menu");           
     }
 
     private void HandleResume()
@@ -155,6 +155,8 @@ public class GameManager : MonoBehaviour
     }
     private void SavePlayerInformation() 
     {
-        SaveSystem.SavePlayer(player,currentCheckpoint,1);
+        var x = SceneManager.GetActiveScene().name;
+        char level = x[x.Length - 1];
+        SaveSystem.SavePlayer(player/*,currentCheckpoint*/, (int)char.GetNumericValue(level));
     }
 }
