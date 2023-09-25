@@ -23,7 +23,8 @@ public class MenuPanelController : MonoBehaviour
 
         startGameButton.onClick.AddListener(() =>
         {
-            LoadLastLevel();
+            SceneManager.LoadScene("Zuzia");
+            //LoadLastLevel();
         });
 
         chooseLevelButton.onClick.AddListener(() =>
