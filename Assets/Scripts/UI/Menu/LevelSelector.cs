@@ -13,7 +13,6 @@ public class LevelSelector : MonoBehaviour
     void Start()
     {
         levelText.text = level.ToString();
-
     }
     public void OpenScene() 
     {

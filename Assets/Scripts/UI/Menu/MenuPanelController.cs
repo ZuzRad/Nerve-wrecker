@@ -55,8 +55,9 @@ public class MenuPanelController : MonoBehaviour
 
     private void LoadLastLevel()
     {
-		PlayerData playerData = SaveSystem.LoadPlayer();
-        SceneManager.LoadScene($"Level {playerData.lastLevel}");
+        int level = SaveSystem.LoadLastLevel();
+		//PlayerData playerData = SaveSystem.LoadPlayer(level);
+        SceneManager.LoadScene($"Level {level}");
         //SceneManager.LoadScene($"Level 1");
 		
 	}
