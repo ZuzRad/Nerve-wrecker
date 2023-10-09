@@ -12,6 +12,8 @@ public class HealthManager : MonoBehaviour
     public Action onPlayerLost;
     public Action onIncreaseHealth;
 
+    public bool isOnCooldown = false;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -24,10 +26,18 @@ public class HealthManager : MonoBehaviour
     }
     public void DecreaseHealth()
     {
+        isOnCooldown = true;
         if (--currentHealth == 0)
         {
             onPlayerLost?.Invoke();
         }
         onPlayerDeath?.Invoke();
+        StartCoroutine(WaitAndDisableCooldown());
+    }
+
+    private IEnumerator WaitAndDisableCooldown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isOnCooldown = false;
     }
 }

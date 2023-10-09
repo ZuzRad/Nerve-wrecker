@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : Obstacle
 {
     public bool isRight;
+    public BoxCollider2D head;
     private Rigidbody2D rb;
     private WaitForSeconds cullDelay = null;
 
@@ -34,7 +35,7 @@ public class Projectile : Obstacle
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if (isTrigger)
+        if(collision != head && collision.GetComponent<Projectile>() == null)
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
