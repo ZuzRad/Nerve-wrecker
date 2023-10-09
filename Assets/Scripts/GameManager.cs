@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameMusicManager musicManager;
     [SerializeField] private SoundManager soundManager;
     private Checkpoint currentCheckpoint;
+
     private void OnEnable()
     {
         BindToEvents();
@@ -30,11 +32,28 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentCheckpoint = start;
-        GameMusicManager.Music randomMusic = (GameMusicManager.Music)Random.Range(0, 3);
+        GameMusicManager.Music randomMusic = (GameMusicManager.Music)UnityEngine.Random.Range(0, 3);
         musicManager.PlayMusic(randomMusic);
-
         uiController.SetTimeText(player.movement.timeToControl.ToString());
-    }
+        loadLevel();
+	}
+    private void loadLevel() 
+    {
+		var x = SceneManager.GetActiveScene().name;
+		char level = x[x.Length - 1];
+		PlayerData playerData = SaveSystem.LoadPlayer((int)char.GetNumericValue(level));
+		Debug.Log($"{playerData.position[0]}, {playerData.position[1]}, {playerData.position[2]}");
+		if (playerData != null)
+		{
+			Vector3 loadedPosition = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
+			player.transform.position = loadedPosition;
+            
+            if(playerData.lastCheckpoint!=-1)// je¿eli przez jakiegoœ przeszed³
+                currentCheckpoint = checkpointsList[playerData.lastCheckpoint];
+            
+            player.healthManager.currentHealth = playerData.health;
+		}
+	}
     private void BindToEvents()
     {
         player.healthManager.onPlayerDeath += BackToCheckpoint;
@@ -157,6 +176,9 @@ public class GameManager : MonoBehaviour
     {
         var x = SceneManager.GetActiveScene().name;
         char level = x[x.Length - 1];
-        SaveSystem.SavePlayer(player/*,currentCheckpoint*/, (int)char.GetNumericValue(level));
+        Debug.Log("Poziom: " + (int)char.GetNumericValue(level));
+        Debug.Log("Zapis danych "+ player.model.transform.position.x + "," + player.model.transform.position.y);
+        Debug.Log(checkpointsList.IndexOf(currentCheckpoint));
+        SaveSystem.SavePlayer(player, checkpointsList.IndexOf(currentCheckpoint), (int)char.GetNumericValue(level));
     }
 }
