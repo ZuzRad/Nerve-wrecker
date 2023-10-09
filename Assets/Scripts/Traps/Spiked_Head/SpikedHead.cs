@@ -25,7 +25,9 @@ public class SpikedHead : Obstacle
             for(int i = 0; i < projectileAmount; i++)
             {
                 GameObject projectileGO = Instantiate(projectile);
-                projectile.GetComponent<Projectile>().isRight = i % 2 == 0;
+                Projectile projectileScript = projectileGO.GetComponent<Projectile>();
+                projectileScript.head = GetComponent<BoxCollider2D>();
+                projectileScript.isRight = i % 2 == 0;
                 projectileGO.transform.position = spawnPoint.position;
             }
             timer = tempTimer;

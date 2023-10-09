@@ -4,37 +4,68 @@ using UnityEngine;
 
 public class DestructingPlatform : MonoBehaviour
 {
-	[SerializeField] private float health = 15;
+	[SerializeField] private float time = 15;
 	[SerializeField] private Color startColor;
 	[SerializeField] private Color endColor;
 
-	private SpriteRenderer sprite;
-	private float maxHealth;
+    [SerializeField] private SpriteRenderer sprite;
+	[SerializeField] private BoxCollider2D boxCollider;
+	private HealthManager healthManager;
+	private float maxTime;
 
 	private void Start()
     {
 		sprite = GetComponent<SpriteRenderer>();
-		maxHealth = health;
+        maxTime = time;
 		SetColor();
 	}
+    private void OnDisable()
+    {
+		if (healthManager != null)
+		{
+			healthManager.onPlayerDeath -= ResetPlatform;
+		}
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
-		if (collision.TryGetComponent(out Movement player))
+		if (collision.TryGetComponent(out HealthManager hpManager))
 		{
-			health -= 0.5f;
-			if (health > 0)
+            if (healthManager == null) 
+			{
+                healthManager = hpManager;
+				healthManager.onPlayerDeath += ResetPlatform;
+            }
+
+
+			time -= 0.5f;
+			if (time > 0)
 			{
 				SetColor();
 			}
 			else
 			{
-				Destroy(gameObject);
+				StartCoroutine(WaitAndResetPlatform());
 			}
 		}
 	}
+	private void ResetPlatform()
+	{
+        sprite.enabled = true;
+        boxCollider.enabled = true;
+        sprite.color = startColor;
+        time = maxTime;
+    }
+
+	private IEnumerator WaitAndResetPlatform()
+	{
+		sprite.enabled = false;
+		boxCollider.enabled = false;
+		yield return new WaitForSeconds(2f);
+		ResetPlatform();
+    }
 
     private void SetColor()
 	{
-		sprite.color = Color.Lerp(endColor, startColor, (float)(health - 1) / (float)(maxHealth - 1));
+		sprite.color = Color.Lerp(endColor, startColor, (float)(time - 1) / (float)(maxTime - 1));
 	}
 }

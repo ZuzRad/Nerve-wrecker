@@ -55,13 +55,9 @@ public class MenuPanelController : MonoBehaviour
 
     private void LoadLastLevel()
     {
-        //PlayerGameProgress playerGameProgress = dataManager.LoadData();
-        //LevelData lastPlayedLevel = playerGameProgress.LevelsData.FindLast(level => level.IsLocked == false);
-
-        //if (lastPlayedLevel != null)
-        //{
-        //    dataManager.CurrentLvl = lastPlayedLevel.LevelNumber + 1;
-        //    SceneManager.LoadScene(lastPlayedLevel.PathToScene);
-        //}
-    }
+		PlayerData playerData = SaveSystem.LoadPlayer();
+        SceneManager.LoadScene($"Level {playerData.lastLevel}");
+        //SceneManager.LoadScene($"Level 1");
+		
+	}
 }

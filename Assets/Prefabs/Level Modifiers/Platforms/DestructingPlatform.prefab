@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2113196517325020714}
   - component: {fileID: 2113196517325020712}
   - component: {fileID: 2113196517325020711}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DestructingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,9 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8b362478171fe45b89c96e34688f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  time: 15
   startColor: {r: 1, g: 1, b: 1, a: 1}
   endColor: {r: 0, g: 0, b: 0, a: 1}
+  sprite: {fileID: 2113196517325020713}
+  boxCollider: {fileID: 2113196517325020714}
 --- !u!61 &2113196517325020711
 BoxCollider2D:
   m_ObjectHideFlags: 0
