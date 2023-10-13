@@ -53,6 +53,9 @@ TagManager:
   - name: Checkpoints
     uniqueID: 33726163
     locked: 0
+  - name: BackgroundTerrain
+    uniqueID: 4226293883
+    locked: 0
   - name: Terrain
     uniqueID: 1067505559
     locked: 0
