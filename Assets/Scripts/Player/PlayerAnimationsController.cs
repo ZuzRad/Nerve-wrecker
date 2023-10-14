@@ -27,7 +27,7 @@ public class PlayerAnimationsController : MonoBehaviour
 
     private void SetDeathAnimation()
     {
-        animator.SetTrigger("death");
+       // animator.SetTrigger("death");
     }
 
     private void Update()
