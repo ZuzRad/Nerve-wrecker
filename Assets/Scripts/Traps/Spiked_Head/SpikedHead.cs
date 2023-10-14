@@ -8,6 +8,8 @@ public class SpikedHead : Obstacle
     [SerializeField] Transform spawnPoint;
     [SerializeField] float timer = 0.5f;
     [SerializeField] int projectileAmount = 2;
+    [SerializeField] bool onlyOneWay = false;
+    [SerializeField] bool isRight = false;
     private Animator animator;
 
     private float tempTimer;
@@ -27,7 +29,22 @@ public class SpikedHead : Obstacle
                 GameObject projectileGO = Instantiate(projectile);
                 Projectile projectileScript = projectileGO.GetComponent<Projectile>();
                 projectileScript.head = GetComponent<BoxCollider2D>();
-                projectileScript.isRight = i % 2 == 0;
+                if (onlyOneWay)
+                {
+                    if (isRight)
+                    {
+                        projectileScript.isRight = true;
+                    }
+                    else
+                    {
+                        projectileScript.isRight = false;
+                    }
+                }
+                else
+                {
+                    projectileScript.isRight = i % 2 == 0;
+                }
+
                 projectileGO.transform.position = spawnPoint.position;
             }
             timer = tempTimer;
