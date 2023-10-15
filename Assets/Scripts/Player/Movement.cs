@@ -118,12 +118,14 @@ public class Movement : MonoBehaviour
     {
         isTimeControlActive = !isTimeControlActive;
         Time.timeScale = 0.5f;
+        speed *= 2;
     }
 
     private void HandleControlTimeCanceled(InputAction.CallbackContext context)
     {
         isTimeControlActive = !isTimeControlActive;
         Time.timeScale = 1f;
+        speed /= 2;
     }
 
     private void HandlePause(InputAction.CallbackContext context)
