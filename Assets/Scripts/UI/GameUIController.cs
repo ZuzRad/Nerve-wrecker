@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameUIController : MonoBehaviour
     [Header("Top info")]
     [SerializeField] public HPUIController hpController;
     [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private Slider slider;
 
     [Header("Panels")]
     [SerializeField] private LevelCompleteUI levelCompleteDisplayer;
@@ -33,9 +34,9 @@ public class GameUIController : MonoBehaviour
         levelCompleteDisplayer.onResetLevel += () => { onResetLevel?.Invoke(); };
     }
 
-    public void SetTimeText(string text)
+    public void SetTimeSlider(float time)
     {
-        timeText.text = text;
+        slider.value = time;
     }
 
     public void SetActivePausePanel(bool isActive)

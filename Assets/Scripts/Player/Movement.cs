@@ -72,6 +72,7 @@ public class Movement : MonoBehaviour
         else if(timeToControl < 0 && isTimeControlActive)
         {
             Time.timeScale = 1;
+            controlTime.Disable();
         }
     }
 

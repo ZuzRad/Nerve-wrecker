@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         currentCheckpoint = start;
         GameMusicManager.Music randomMusic = (GameMusicManager.Music)UnityEngine.Random.Range(0, 3);
         musicManager.PlayMusic(randomMusic);
-        uiController.SetTimeText(player.movement.timeToControl.ToString());
+        uiController.SetTimeSlider(player.movement.timeToControl);
         loadLevel();
 	}
     private void loadLevel() 
@@ -77,8 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleSlowGame(float time)
     {
-        string timeText = time.ToString("F1");
-        uiController.SetTimeText(timeText);
+        uiController.SetTimeSlider(time);
     }
     private void HandleNextLevelButtonClicked()
     {
