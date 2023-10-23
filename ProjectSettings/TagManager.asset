@@ -50,6 +50,9 @@ TagManager:
   - name: Parralax 2
     uniqueID: 2373809125
     locked: 0
+  - name: BackgroundTerrain
+    uniqueID: 4226293883
+    locked: 0
   - name: Checkpoints
     uniqueID: 33726163
     locked: 0

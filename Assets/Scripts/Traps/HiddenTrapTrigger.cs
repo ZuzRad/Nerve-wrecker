@@ -6,7 +6,7 @@ public class HiddenTrapTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject trapPrefab;
     [SerializeField] private Transform trapPosition;
-
+    private bool isTrigger = false;
     private List<GameObject> trapList = new();
     private HealthManager healthManager;
 
@@ -19,7 +19,7 @@ public class HiddenTrapTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out HealthManager hpManager))
+        if(collision.TryGetComponent(out HealthManager hpManager) && !isTrigger)
         {
             if(healthManager == null)
             {
@@ -28,6 +28,7 @@ public class HiddenTrapTrigger : MonoBehaviour
             }
             GameObject trap = Instantiate(trapPrefab, trapPosition);
             trapList.Add(trap);
+            isTrigger = true;
         }
     }
 
@@ -35,6 +36,7 @@ public class HiddenTrapTrigger : MonoBehaviour
     {
         foreach(GameObject trap in trapList)
         {
+            isTrigger = false;
             Destroy(trap);        
         }
     }
