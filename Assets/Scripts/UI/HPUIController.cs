@@ -11,6 +11,7 @@ public class HPUIController : MonoBehaviour
     private int heartsIndex = 3;
     public void DecreaseHeartsAmount()
     {
+        Debug.Log("decreased");
         heartsIndex--;
         heartsImg[heartsIndex].sprite = deleteHeartSprite;
     }

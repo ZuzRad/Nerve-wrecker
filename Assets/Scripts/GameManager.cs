@@ -40,20 +40,34 @@ public class GameManager : MonoBehaviour
     private void loadLevel() 
     {
 		var x = SceneManager.GetActiveScene().name;
-		char level = x[x.Length - 1];
-		PlayerData playerData = SaveSystem.LoadPlayer((int)char.GetNumericValue(level));
-		Debug.Log($"{playerData.position[0]}, {playerData.position[1]}, {playerData.position[2]}");
-		if (playerData != null)
-		{
-			Vector3 loadedPosition = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
-			player.transform.position = loadedPosition;
+		int level = (int)char.GetNumericValue(x[x.Length - 1]);
+		PlayerData playerData = SaveSystem.LoadPlayer(level);
+        if (playerData != null)
+        {
+            //Debug.Log($"{playerData.position[0]}, {playerData.position[1]}, {playerData.position[2]}");
+            Vector3 loadedPosition = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
+            player.transform.position = loadedPosition;
+
+            if (playerData.lastCheckpoint != -1)// je¿eli przez jakiegoœ przeszed³
+                ChangeCurrentCheckpoint(checkpointsList[playerData.lastCheckpoint]);
             
-            if(playerData.lastCheckpoint!=-1)// je¿eli przez jakiegoœ przeszed³
-                currentCheckpoint = checkpointsList[playerData.lastCheckpoint];
-            
-            player.healthManager.currentHealth = playerData.health;
-		}
-	}
+
+            int decrease = 3 - playerData.health;
+            for (int i = 0; i < decrease; i++)
+            {
+                //Debug.Log("decreased");
+                //uiController.hpController.DecreaseHeartsAmount();
+                player.healthManager.DecreaseHealth();
+            }
+
+        }
+        //Debug.Log($"Health manager:{player.healthManager.currentHealth}");
+        //player.healthManager.currentHealth = 2;
+       
+        
+        
+        //Debug.Log($"Health manager:{player.healthManager.currentHealth} Saved:{playerData.health}");
+    }
     private void BindToEvents()
     {
         player.healthManager.onPlayerDeath += BackToCheckpoint;
@@ -77,7 +91,9 @@ public class GameManager : MonoBehaviour
 
     private void HandleSlowGame(float time)
     {
-        uiController.SetTimeSlider(time);
+        Debug.Log($"Health manager:{player.healthManager.currentHealth}");
+
+       uiController.SetTimeSlider(time);
     }
     private void HandleNextLevelButtonClicked()
     {
@@ -94,6 +110,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleResetLevel()
     {
+        //var x = SceneManager.GetActiveScene().name;
+        //int level = (int)char.GetNumericValue(x[x.Length - 1]); //usuwamy plik z progresem
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -143,6 +161,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleEndLevel()
     {
+        var x = SceneManager.GetActiveScene().name;
+        int level = (int)char.GetNumericValue(x[x.Length - 1]); //usuwamy plik z progresem
         player.movement.DisableInputs();
         uiController.SetActiveCompleteLevelPanel(true);
         Time.timeScale = 0;
@@ -158,6 +178,9 @@ public class GameManager : MonoBehaviour
 
     private void RestartLevel()
     {
+        var x = SceneManager.GetActiveScene().name;
+        int level = (int)char.GetNumericValue(x[x.Length - 1]); //usuwamy plik z progresem
+        SaveSystem.DeleteProgress(level);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -170,6 +193,7 @@ public class GameManager : MonoBehaviour
     {
         uiController.hpController.DecreaseHeartsAmount();
         player.model.transform.position = currentCheckpoint.transform.position;
+        Debug.Log($"Health manager:{player.healthManager.currentHealth}");
     }
     private void SavePlayerInformation() 
     {

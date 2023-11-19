@@ -20,6 +20,11 @@ public static class SaveSystem
 		formatter.Serialize(stream, data2);
 		stream.Close();
 	}
+	public static void DeleteProgress(int lastLevel) 
+	{
+        string path = Application.persistentDataPath + $"/player_{lastLevel}.fun";
+		File.Delete(path);
+	}
 	public static PlayerData LoadPlayer(int level)
 	{
 		string path = Application.persistentDataPath + $"/player_{level}.fun";
@@ -33,7 +38,7 @@ public static class SaveSystem
 		}
 		else
 		{
-			Debug.LogError("Save file not found in " + path);
+			Debug.Log("Save file not found in " + path);
 			return null;
 		}
 	}

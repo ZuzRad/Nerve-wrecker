@@ -14,7 +14,7 @@ public class HealthManager : MonoBehaviour
 
     public bool isOnCooldown = false;
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
     }
