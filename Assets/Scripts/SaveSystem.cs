@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 public static class SaveSystem 
 {
@@ -59,4 +61,29 @@ public static class SaveSystem
 			return 0;
 		}
 	}
+	public static bool IsLevelCompleted(int level)
+	{
+        string fullPath = Path.Combine(Application.dataPath, "Scripts", "CompletedLevels.json");
+		string text= File.ReadAllText(fullPath);
+		JObject levelInfo = JObject.Parse(text);
+		JArray array = (JArray)levelInfo["data"];
+		JToken levelData = array.Where(x => (string)x["name"] == level.ToString()).FirstOrDefault();
+		var completed = (bool)levelData["isCompleted"];
+
+        Debug.Log(completed.ToString());
+		if (levelData != null)
+			return (bool)levelData["isCompleted"];
+		else
+			return false;
+    }
+	public static void LevelCompleted(int level)
+	{
+        string fullPath = Path.Combine(Application.dataPath, "Scripts", "CompletedLevels.json");
+        string text = File.ReadAllText(fullPath);
+        JObject levelInfo = JObject.Parse(text);
+        JArray array = (JArray)levelInfo["data"];
+        JToken levelData = array.Where(x => (string)x["name"] == level.ToString()).FirstOrDefault();
+		levelData["isCompleted"] = true;
+		File.WriteAllText(fullPath, levelInfo.ToString());
+    }
 }

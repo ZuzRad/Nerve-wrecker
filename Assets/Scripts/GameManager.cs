@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 	}
     private void loadLevel() 
     {
-		var x = SceneManager.GetActiveScene().name;
+        var x = SceneManager.GetActiveScene().name;
 		int level = (int)char.GetNumericValue(x[x.Length - 1]);
 		PlayerData playerData = SaveSystem.LoadPlayer(level);
         if (playerData != null)
@@ -163,6 +163,8 @@ public class GameManager : MonoBehaviour
     {
         var x = SceneManager.GetActiveScene().name;
         int level = (int)char.GetNumericValue(x[x.Length - 1]); //usuwamy plik z progresem
+        SaveSystem.DeleteProgress(level);
+        SaveSystem.LevelCompleted(level);   
         player.movement.DisableInputs();
         uiController.SetActiveCompleteLevelPanel(true);
         Time.timeScale = 0;
