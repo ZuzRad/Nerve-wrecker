@@ -53,12 +53,12 @@ public class MenuPanelController : MonoBehaviour
         });
     }
 
-    private void LoadLastLevel()
-    {
-        int level = SaveSystem.LoadLastLevel();
-		//PlayerData playerData = SaveSystem.LoadPlayer(level);
-        SceneManager.LoadScene($"Level {level}");
-        //SceneManager.LoadScene($"Level 1");
+ //   private void LoadLastLevel()
+ //   {
+ //       int level = SaveSystem.LoadLastLevel();
+	//	//PlayerData playerData = SaveSystem.LoadPlayer(level);
+ //       SceneManager.LoadScene($"Level {level}");
+ //       //SceneManager.LoadScene($"Level 1");
 		
-	}
+	//}
 }

@@ -9,17 +9,10 @@ public static class SaveSystem
 	public static void SavePlayer(Player player,int checkpoint, int lastLevel) 
 	{
 		BinaryFormatter formatter = new BinaryFormatter();
-
 		string path = Application.persistentDataPath + $"/player_{lastLevel}.fun"; //zapis informacji o poszczególnych poziomach
 		FileStream stream = new FileStream(path, FileMode.Create);
-		PlayerData data = new PlayerData(player, checkpoint, lastLevel);
+		PlayerData data = new PlayerData(player, checkpoint);
 		formatter.Serialize(stream, data);
-		stream.Close();
-
-		string recentlyPlayed = Application.persistentDataPath + $"/lastlevel.fun"; // info o ostatnio rozgrywanym poziomie
-		stream = new FileStream(recentlyPlayed, FileMode.Create);
-		int data2 = lastLevel;
-		formatter.Serialize(stream, data2);
 		stream.Close();
 	}
 	public static void DeleteProgress(int lastLevel) 
@@ -44,23 +37,23 @@ public static class SaveSystem
 			return null;
 		}
 	}
-	public static int LoadLastLevel() 
-	{
-		string path = Application.persistentDataPath + "/lastlevel.fun";
-		if (File.Exists(path))
-		{
-			BinaryFormatter formatter = new BinaryFormatter();
-			FileStream stream = new FileStream(path, FileMode.Open);
-			int lastlevel = (int)formatter.Deserialize(stream);
-			stream.Close();
-			return lastlevel;
-		}
-		else
-		{
-			Debug.LogError("Save file not found in " + path);
-			return 0;
-		}
-	}
+	//public static int LoadLastLevel() 
+	//{
+	//	string path = Application.persistentDataPath + "/lastlevel.fun";
+	//	if (File.Exists(path))
+	//	{
+	//		BinaryFormatter formatter = new BinaryFormatter();
+	//		FileStream stream = new FileStream(path, FileMode.Open);
+	//		int lastlevel = (int)formatter.Deserialize(stream);
+	//		stream.Close();
+	//		return lastlevel;
+	//	}
+	//	else
+	//	{
+	//		Debug.LogError("Save file not found in " + path);
+	//		return 0;
+	//	}
+	//}
 	public static bool IsLevelCompleted(int level)
 	{
         string fullPath = Path.Combine(Application.dataPath, "Scripts", "CompletedLevels.json");

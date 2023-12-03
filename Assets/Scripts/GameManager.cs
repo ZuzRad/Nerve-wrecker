@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         UnbindFromEvents();
     }
 
-    private void Start()
+    private void Awake()
     {
         currentCheckpoint = start;
         GameMusicManager.Music randomMusic = (GameMusicManager.Music)UnityEngine.Random.Range(0, 3);
@@ -39,12 +39,13 @@ public class GameManager : MonoBehaviour
 	}
     private void loadLevel() 
     {
+        SaveSystem.DeleteProgress(4);
         var x = SceneManager.GetActiveScene().name;
 		int level = (int)char.GetNumericValue(x[x.Length - 1]);
 		PlayerData playerData = SaveSystem.LoadPlayer(level);
-        if (playerData != null)
+        if (false/*playerData != null*/)
         {
-            //Debug.Log($"{playerData.position[0]}, {playerData.position[1]}, {playerData.position[2]}");
+            Debug.Log($"x:{playerData.position[0]};\ny:{playerData.position[1]};\nz:{playerData.position[2]}");
             Vector3 loadedPosition = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
             player.transform.position = loadedPosition;
 

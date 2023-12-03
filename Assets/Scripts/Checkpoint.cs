@@ -17,6 +17,7 @@ public class Checkpoint : MonoBehaviour
         if (collision.TryGetComponent(out Movement player))
         {
             onCheckpointTrigger?.Invoke(this);
+            Debug.Log("jestem checkpointem");
         }
     }
 }
