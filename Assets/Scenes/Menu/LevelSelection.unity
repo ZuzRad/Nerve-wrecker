@@ -206,8 +206,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 971191568}
   m_HandleRect: {fileID: 971191567}
   m_Direction: 2
-  m_Value: 0.9999998
-  m_Size: 0.5101244
+  m_Value: 0.99999994
+  m_Size: 0.4721252
   m_NumberOfSteps: 10
   m_OnValueChanged:
     m_PersistentCalls:
@@ -313,6 +313,10 @@ PrefabInstance:
     - target: {fileID: 6206254071340673613, guid: 7d39e6669cee898449531841aa642552, type: 3}
       propertyPath: m_Name
       value: Scroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206254071387336203, guid: 7d39e6669cee898449531841aa642552, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 6206254071452291257, guid: 7d39e6669cee898449531841aa642552, type: 3}
       propertyPath: m_AnchorMax.y
@@ -504,7 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backToMenuButton: {fileID: 1366209665}
-  resetDataButton: {fileID: 1419915988}
+  resetDataButton: {fileID: 0}
 --- !u!1 &660237355
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,17 +998,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb2e046538978e6409987f4d1bd6060e, type: 3}
---- !u!114 &1419915988 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9127451702906695628, guid: 7d39e6669cee898449531841aa642552, type: 3}
-  m_PrefabInstance: {fileID: 328380134}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1463859972
 PrefabInstance:
   m_ObjectHideFlags: 0

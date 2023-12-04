@@ -6,26 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuPanelController : MonoBehaviour
 {
-    [SerializeField] private UnityEngine.UI.Button startGameButton;
     [SerializeField] private UnityEngine.UI.Button chooseLevelButton;
     [SerializeField] private UnityEngine.UI.Button settingsButton;
     [SerializeField] private UnityEngine.UI.Button creditsButton;
     [SerializeField] private UnityEngine.UI.Button exitGameButton;
 
-   // [Space]
-
-    //[SerializeField] private DataManager dataManager;
     public event Action MenuMusic;
 
     private void Start()
     {
         MenuMusic?.Invoke();
 
-        startGameButton.onClick.AddListener(() =>
-        {
-            SceneManager.LoadScene("Zuzia");
-            //LoadLastLevel();
-        });
 
         chooseLevelButton.onClick.AddListener(() =>
         {
@@ -52,13 +43,4 @@ public class MenuPanelController : MonoBehaviour
 
         });
     }
-
- //   private void LoadLastLevel()
- //   {
- //       int level = SaveSystem.LoadLastLevel();
-	//	//PlayerData playerData = SaveSystem.LoadPlayer(level);
- //       SceneManager.LoadScene($"Level {level}");
- //       //SceneManager.LoadScene($"Level 1");
-		
-	//}
 }
