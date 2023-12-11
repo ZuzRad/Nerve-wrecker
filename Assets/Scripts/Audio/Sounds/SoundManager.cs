@@ -8,7 +8,12 @@ public class SoundManager : MonoBehaviour {
 
     AudioSource audioSource;
     Dictionary<Sounds, AudioClip> sounds;
-    
+
+    public enum Sounds
+    {
+        Jump, EndLevel, Collect, Hit, Wind, Laser, Trampoline
+    }
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -98,10 +103,5 @@ public class SoundManager : MonoBehaviour {
             endLevel.onEndLevel += () => PlaySound(Sounds.EndLevel);
         }
 
-    }
-
-    public enum Sounds
-    {
-        Jump, EndLevel, Collect, Hit, Wind, Laser, Trampoline
     }
 }
