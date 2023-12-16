@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         UnbindFromEvents();
     }
 
+
     private void Awake()
     {
         currentCheckpoint = start;

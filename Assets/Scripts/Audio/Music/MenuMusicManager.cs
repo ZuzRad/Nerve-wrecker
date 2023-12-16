@@ -32,7 +32,7 @@ public class MenuMusicManager : MonoBehaviour
     private void Update()
     {
         activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name.StartsWith("Level"))
+        if (activeScene.name.StartsWith("Level") && activeScene.name != "LevelSelection")
         {
             Destroy(gameObject);
         }

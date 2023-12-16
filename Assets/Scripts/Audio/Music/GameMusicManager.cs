@@ -29,8 +29,8 @@ public class GameMusicManager : MonoBehaviour
 
     public void PlayMusic(Music music)
     {
-        //audioSource.clip = musicClips[music];
-        //audioSource.loop = true;
-        //audioSource.Play();
+        audioSource.clip = musicClips[music];
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }
