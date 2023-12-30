@@ -3,6 +3,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 public static class SaveSystem 
 {
@@ -37,41 +39,35 @@ public static class SaveSystem
 			return null;
 		}
 	}
-	//public static int LoadLastLevel() 
-	//{
-	//	string path = Application.persistentDataPath + "/lastlevel.fun";
-	//	if (File.Exists(path))
-	//	{
-	//		BinaryFormatter formatter = new BinaryFormatter();
-	//		FileStream stream = new FileStream(path, FileMode.Open);
-	//		int lastlevel = (int)formatter.Deserialize(stream);
-	//		stream.Close();
-	//		return lastlevel;
-	//	}
-	//	else
-	//	{
-	//		Debug.LogError("Save file not found in " + path);
-	//		return 0;
-	//	}
-	//}
 	public static bool IsLevelCompleted(int level)
 	{
-        string fullPath = Path.Combine(Application.dataPath, "Scripts", "CompletedLevels.json");
-		string text= File.ReadAllText(fullPath);
-		JObject levelInfo = JObject.Parse(text);
-		JArray array = (JArray)levelInfo["data"];
-		JToken levelData = array.Where(x => (string)x["name"] == level.ToString()).FirstOrDefault();
-		var completed = (bool)levelData["isCompleted"];
+        string fullPath = Application.persistentDataPath + "/CompletedLevels.json";
+		if (File.Exists(fullPath))
+		{
+			string text = File.ReadAllText(fullPath);
+			JObject levelInfo = JObject.Parse(text);
+			JArray array = (JArray)levelInfo["data"];
+			JToken levelData = array.Where(x => (string)x["name"] == level.ToString()).FirstOrDefault();
+			var completed = (bool)levelData["isCompleted"];
 
-        Debug.Log(completed.ToString());
-		if (levelData != null)
-			return (bool)levelData["isCompleted"];
+			Debug.Log(completed.ToString());
+			if (levelData != null)
+				return (bool)levelData["isCompleted"];
+			else
+				return false;
+		}
 		else
 			return false;
     }
 	public static void LevelCompleted(int level)
 	{
-        string fullPath = Path.Combine(Application.dataPath, "Scripts", "CompletedLevels.json");
+		
+		string fullPath = Application.persistentDataPath + "/CompletedLevels.json";
+        if (!File.Exists(fullPath))
+		{
+			CreateCompletedLevelsFile(fullPath);
+
+        }
         string text = File.ReadAllText(fullPath);
         JObject levelInfo = JObject.Parse(text);
         JArray array = (JArray)levelInfo["data"];
@@ -79,4 +75,22 @@ public static class SaveSystem
 		levelData["isCompleted"] = true;
 		File.WriteAllText(fullPath, levelInfo.ToString());
     }
+	public static void CreateCompletedLevelsFile(string filePath) 
+	{
+        List<object> taskDataList = new List<object>();
+        for (int i = 1; i <= 10; i++)
+        {
+            taskDataList.Add(new
+            {
+                name = i.ToString(),
+                isCompleted = (i == 7)
+            });
+        }
+        var jsonData = new
+        {
+            data = taskDataList
+        };
+        File.WriteAllText(filePath, JsonConvert.SerializeObject(jsonData, Formatting.Indented));
+    }
+
 }

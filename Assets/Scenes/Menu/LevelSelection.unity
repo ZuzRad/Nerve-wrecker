@@ -314,6 +314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelSelectionPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7300640259823082496, guid: 7d39e6669cee898449531841aa642552, type: 3}
+      propertyPath: m_MovementType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7385158399777949090, guid: 7d39e6669cee898449531841aa642552, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

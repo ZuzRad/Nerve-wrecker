@@ -2,7 +2,7 @@
   "data": [
     {
       "name": "1",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "name": "2",
@@ -14,7 +14,7 @@
     },
     {
       "name": "4",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "name": "5",
@@ -22,7 +22,7 @@
     },
     {
       "name": "6",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "name": "7",

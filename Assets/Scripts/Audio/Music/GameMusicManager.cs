@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,8 +31,11 @@ public class GameMusicManager : MonoBehaviour
 
     public void PlayMusic(Music music)
     {
-        audioSource.clip = musicClips[music];
-        audioSource.loop = true;
-        audioSource.Play();
+        if (musicClips != null)
+        {
+            audioSource.clip = musicClips[music];
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 }

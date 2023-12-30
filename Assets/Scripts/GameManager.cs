@@ -33,22 +33,23 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         currentCheckpoint = start;
-        GameMusicManager.Music randomMusic = (GameMusicManager.Music)UnityEngine.Random.Range(0, 3);
+        GameMusicManager.Music randomMusic = (GameMusicManager.Music)UnityEngine.Random.Range(0, 2);
         musicManager.PlayMusic(randomMusic);
         uiController.SetTimeSlider(player.movement.timeToControl);
         loadLevel();
 	}
     private void loadLevel() 
     {
-        SaveSystem.DeleteProgress(4);
         var x = SceneManager.GetActiveScene().name;
 		int level = (int)char.GetNumericValue(x[x.Length - 1]);
 		PlayerData playerData = SaveSystem.LoadPlayer(level);
-        if (false/*playerData != null*/)
+        if (playerData != null)
         {
             Debug.Log($"x:{playerData.position[0]};\ny:{playerData.position[1]};\nz:{playerData.position[2]}");
             Vector3 loadedPosition = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
-            player.transform.position = loadedPosition;
+
+            player.transform.localPosition = loadedPosition;
+            //player.transform.position = loadedPosition;
 
             if (playerData.lastCheckpoint != -1)// je¿eli przez jakiegoœ przeszed³
                 ChangeCurrentCheckpoint(checkpointsList[playerData.lastCheckpoint]);
@@ -57,18 +58,10 @@ public class GameManager : MonoBehaviour
             int decrease = 3 - playerData.health;
             for (int i = 0; i < decrease; i++)
             {
-                //Debug.Log("decreased");
-                //uiController.hpController.DecreaseHeartsAmount();
+                uiController.hpController.DecreaseHeartsAmount();
                 player.healthManager.DecreaseHealth();
             }
-
-        }
-        //Debug.Log($"Health manager:{player.healthManager.currentHealth}");
-        //player.healthManager.currentHealth = 2;
-       
-        
-        
-        //Debug.Log($"Health manager:{player.healthManager.currentHealth} Saved:{playerData.health}");
+        }  
     }
     private void BindToEvents()
     {
@@ -164,12 +157,14 @@ public class GameManager : MonoBehaviour
     private void HandleEndLevel()
     {
         var x = SceneManager.GetActiveScene().name;
-        int level = (int)char.GetNumericValue(x[x.Length - 1]); //usuwamy plik z progresem
+        int level = (int)char.GetNumericValue(x[x.Length - 1]); 
         SaveSystem.DeleteProgress(level);
         SaveSystem.LevelCompleted(level);   
         player.movement.DisableInputs();
         uiController.SetActiveCompleteLevelPanel(true);
         Time.timeScale = 0;
+        Vector3 loadedPosition = new Vector3(0, 0, 0);
+        player.transform.localPosition = loadedPosition;
     }
     private void ChangeCurrentCheckpoint(Checkpoint newChechpoint)
     {
