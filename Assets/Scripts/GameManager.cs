@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
         }
 
         uiController.onBackToMenu += HandleBackToMenu;
+        uiController.onBackToMenuLevelCompleted += HandleBackToMenuLevelCompleted;
         uiController.onNextLevelButtonClicked += HandleNextLevelButtonClicked;
         uiController.onResetLevel += HandleResetLevel;
         uiController.onResumeLevel += HandleResume;
@@ -99,6 +100,8 @@ public class GameManager : MonoBehaviour
         //{
         //    SceneManager.LoadScene(playerGameProgress.LevelsData[levelIndex].PathToScene);
         //}
+        uiController.SetActiveCompleteLevelPanel(false);
+        player.movement.EnableInputs();
         Time.timeScale = 1;
         Debug.Log("LOAD NEXT LEVEL");
     }
@@ -116,6 +119,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SavePlayerInformation();
 		SceneManager.LoadScene("Menu");           
+    }
+    private void HandleBackToMenuLevelCompleted()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu");
     }
 
     private void HandleResume()
@@ -163,15 +171,16 @@ public class GameManager : MonoBehaviour
         player.movement.DisableInputs();
         uiController.SetActiveCompleteLevelPanel(true);
         Time.timeScale = 0;
-        Vector3 loadedPosition = new Vector3(0, 0, 0);
-        player.transform.localPosition = loadedPosition;
     }
     private void ChangeCurrentCheckpoint(Checkpoint newChechpoint)
     {
         if(newChechpoint != currentCheckpoint)
         {
             currentCheckpoint = newChechpoint;
-            currentCheckpoint.animator.SetTrigger("playerTeleport");
+            if (currentCheckpoint.animator)
+            {
+                currentCheckpoint.animator.SetTrigger("playerTeleport");
+            }
         }
     }
 

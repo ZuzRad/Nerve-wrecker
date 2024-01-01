@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameUIController : MonoBehaviour
 {
     public Action onBackToMenu;
+    public Action onBackToMenuLevelCompleted;
     public Action onResetLevel;
     public Action onResumeLevel;
     public Action onNextLevelButtonClicked;
@@ -30,7 +31,7 @@ public class GameUIController : MonoBehaviour
         pausePanelDisplayer.onResumeLevel += () => { onResumeLevel?.Invoke(); };
 
         levelCompleteDisplayer.onNextLevel += () => { onNextLevelButtonClicked?.Invoke(); };
-        levelCompleteDisplayer.onBackButtonClicked += () => { onBackToMenu?.Invoke(); };
+        levelCompleteDisplayer.onBackButtonClicked += () => { onBackToMenuLevelCompleted?.Invoke(); };
         levelCompleteDisplayer.onResetLevel += () => { onResetLevel?.Invoke(); };
     }
 

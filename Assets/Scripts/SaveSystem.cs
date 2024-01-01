@@ -61,20 +61,20 @@ public static class SaveSystem
     }
 	public static void LevelCompleted(int level)
 	{
-		
+
 		string fullPath = Application.persistentDataPath + "/CompletedLevels.json";
-        if (!File.Exists(fullPath))
+		if (!File.Exists(fullPath))
 		{
 			CreateCompletedLevelsFile(fullPath);
 
-        }
-        string text = File.ReadAllText(fullPath);
-        JObject levelInfo = JObject.Parse(text);
-        JArray array = (JArray)levelInfo["data"];
-        JToken levelData = array.Where(x => (string)x["name"] == level.ToString()).FirstOrDefault();
+		}
+		string text = File.ReadAllText(fullPath);
+		JObject levelInfo = JObject.Parse(text);
+		JArray array = (JArray)levelInfo["data"];
+		JToken levelData = array.Where(x => (string)x["name"] == level.ToString()).FirstOrDefault();
 		levelData["isCompleted"] = true;
 		File.WriteAllText(fullPath, levelInfo.ToString());
-    }
+	}
 	public static void CreateCompletedLevelsFile(string filePath) 
 	{
         List<object> taskDataList = new List<object>();
