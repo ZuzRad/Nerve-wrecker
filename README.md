@@ -1,6 +1,7 @@
 # NERVE WRECKER
 
-![end](https://github.com/ZuzRad/Nerve-wrecker/assets/107064508/148b3cd6-6160-47d2-b4b9-500bb09fef67)
+
+![fans_bad](https://github.com/ZuzRad/Nerve-wrecker/assets/107064508/d4a2a7c4-1ad1-4aa6-96b7-87f5461f2c86)
 
 
 ## 📖 Table of Contents
