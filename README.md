@@ -18,14 +18,15 @@ The aim of the project is to implement a two-dimensional arcade platform game us
 ## ✨ Game Features
 List of features that the game includes.
 - Character with the ability to control time
+- Progress saving system
 - Extremely difficult levels
 - Additional level modifiers
 - Many different traps
 
 ## 💡 Learning Goals
 - 2D level design
+- Progress saving system
 - Input system
-- Line Renderer component
 - Basics of sound design
 - Animation Transitions and States
 
