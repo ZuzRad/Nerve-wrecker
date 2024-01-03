@@ -22,6 +22,7 @@ List of features that the game includes.
 - Extremely difficult levels
 - Additional level modifiers
 - Many different traps
+- Checkpoint system
 
 ## 💡 Learning Goals
 - 2D level design
